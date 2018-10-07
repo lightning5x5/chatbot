@@ -2,7 +2,7 @@ import random
 
 
 # 入力された文に名詞が含まれなかった時に使用される関数
-def Reply1():
+def reply1():
     reply1 = [
         '名詞がないよ。',
         '名詞がないようです。',
@@ -13,7 +13,7 @@ def Reply1():
 
 
 # 抽出された名詞がDB上に存在した時に使用される関数
-def Reply2(input_meishi, zokusei_sql, meishi_str):
+def reply2(input_meishi, zokusei_sql, meishi_str):
     reply2 = [
         input_meishi + 'って\"' + zokusei_sql + '\"だよね！！',
         input_meishi + 'は\"' + zokusei_sql + '\"ですよね。',
@@ -29,7 +29,7 @@ def Reply2(input_meishi, zokusei_sql, meishi_str):
 
 
 # 抽出された名詞がDB上に存在しなかった時に使用される関数
-def Reply3(input_meishi):
+def reply3(input_meishi):
     reply3 = [
         '\"' + input_meishi + '\"って何？\n' + '次の中から選んで！！\n',
         '\"' + input_meishi + '\"とは何でしょう。\n' + '次の中から選んでいただけませんか？\n'
@@ -39,7 +39,7 @@ def Reply3(input_meishi):
 
 
 # お礼を表示する時に使用される関数
-def Reply4():
+def reply4():
     reply4 = [
         'ありがとう。',
         'ありがとうございます。'

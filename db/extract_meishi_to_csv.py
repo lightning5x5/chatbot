@@ -1,7 +1,7 @@
 import MeCab
 
 
-def extractKeyword(text):
+def extract_keywords(text):
     tagger = MeCab.Tagger('-Ochasen')
     tagger.parse('')
     node = tagger.parseToNode(text)
@@ -17,7 +17,7 @@ txt_read = open(u'hoge.txt', 'r')
 csv_write = open(u'hoge.csv', 'w')
 txt_data = txt_read.read()
 
-Subjects = extractKeyword(txt_data)
+Subjects = extract_keywords(txt_data)
 for words in Subjects:
     csv_write.write(words)
     csv_write.write(',\n')

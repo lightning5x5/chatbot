@@ -3,13 +3,13 @@ import pymysql
 import MeCab
 
 
-def Yomigana(text):
+def yomigana(text):
     tagger = MeCab.Tagger('-Oyomi -d /usr/lib/mecab/dic/mecab-ipadic-neologd')
     reply_word = tagger.parse(text).rstrip('\n')
     return reply_word
 
 
-def headChar(Str):
+def head_char(Str):
     str_h = Str[len(Str) - 1]
 
     if str_h == 'ァ':                #拗音の処理------ここから
@@ -35,7 +35,7 @@ def headChar(Str):
     return str_h
 
 
-def Shiritori():
+def shiritori():
     print('''
 ルールは次に説明するようになるよ
 長音「ー」は一つ前の文字が入力になるよ
@@ -70,7 +70,7 @@ def Shiritori():
                 FLAG_EXIT = 1
                 break
 
-            word = Yomigana(word)
+            word = yomigana(word)
 
             try:
                 if word[0] != last_char:                #最初の文字が最後の文字と異なるとき
@@ -80,7 +80,7 @@ def Shiritori():
                 print('文字を入力してね')
                 continue
 
-            head = headChar(word)                #最後の文字をheadに代入
+            head = head_char(word)                #最後の文字をheadに代入
 
             if head == 'ン':                #'ん'がつくと負けのルール
                 print('\"ん\"がついたから負けだよーん')
@@ -113,7 +113,7 @@ def Shiritori():
                 if data[i][1] in str(swap):                #もしも現在の単語が一度出てきた場合
                     continue
                 else:
-                    last_char = headChar(data[i][1][len(data[i][1]) - 1])
+                    last_char = head_char(data[i][1][len(data[i][1]) - 1])
                     if last_char == 'ン':
                         continue
 

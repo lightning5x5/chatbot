@@ -1,4 +1,4 @@
-def Weather():
+def weather():
     json_url = 'http://weather.livedoor.com/forecast/webservice/json/v1'
     payload = {'city': '040010'}
     response = requests.get(json_url, params=payload)

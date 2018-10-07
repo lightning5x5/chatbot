@@ -3,7 +3,7 @@ import re
 import unicodedata
 
 
-def unicodeNormalize(cls, s):
+def unicode_normalize(cls, s):
     pt = re.compile('([{}]+)'.format(cls))
 
     def norm(c):
@@ -13,7 +13,7 @@ def unicodeNormalize(cls, s):
     return s
 
 
-def removeExtraSpaces(s):
+def remove_extra_spaces(s):
     s = re.sub('[ 　]+', ' ', s)
     blocks = ''.join(('\u4E00-\u9FFF',  # CJK UNIFIED IDEOGRAPHS
                       '\u3040-\u309F',  # HIRAGANA
@@ -23,21 +23,21 @@ def removeExtraSpaces(s):
                       ))
     basic_latin = '\u0000-\u007F'
 
-    def removeSpaceBetween(cls1, cls2, s):
+    def remove_space_between(cls1, cls2, s):
         p = re.compile('([{}]) ([{}])'.format(cls1, cls2))
         while p.search(s):
             s = p.sub(r'\1\2', s)
         return s
 
-    s = removeSpaceBetween(blocks, blocks, s)
-    s = removeSpaceBetween(blocks, basic_latin, s)
-    s = removeSpaceBetween(basic_latin, blocks, s)
+    s = remove_space_between(blocks, blocks, s)
+    s = remove_space_between(blocks, basic_latin, s)
+    s = remove_space_between(basic_latin, blocks, s)
     return s
 
 
-def normalizeNeologd(s):
+def normalize_neologd(s):
     s = s.strip()
-    s = unicodeNormalize('０-９Ａ-Ｚａ-ｚ｡-ﾟ', s)
+    s = unicode_normalize('０-９Ａ-Ｚａ-ｚ｡-ﾟ', s)
 
     def maketrans(f, t):
         return {ord(x): ord(y) for x, y in zip(f, t)}
@@ -48,8 +48,8 @@ def normalizeNeologd(s):
     s = re.sub('[˗֊‐‑‒–⁃⁻₋−]+', '-', s)  # normalize hyphens
     s = re.sub('[﹣－ｰ—―─━ー]+', 'ー', s)  # normalize choonpus
     s = re.sub('[~∼∾〜〰～]', '', s)  # remove tildes
-    s = removeExtraSpaces(s)
-    s = unicodeNormalize('！”＃＄％＆’（）＊＋，−．／：；＜＞？＠［￥］＾＿｀｛｜｝〜', s)  # keep ＝,・,「,」
+    s = remove_extra_spaces(s)
+    s = unicode_normalize('！”＃＄％＆’（）＊＋，−．／：；＜＞？＠［￥］＾＿｀｛｜｝〜', s)  # keep ＝,・,「,」
     s = re.sub('[’]', '\'', s)
     s = re.sub('[”]', '"', s)
     return s

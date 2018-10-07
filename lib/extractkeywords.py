@@ -1,8 +1,9 @@
 import MeCab
+
 import jtalk
 
 
-def extractKeywords(text):
+def extract_keywords(text):
     tagger = MeCab.Tagger('-Ochasen -d /usr/lib/mecab/dic/mecab-ipadic-neologd')
     tagger.parse('')
     node = tagger.parseToNode(text)
